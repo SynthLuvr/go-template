@@ -4,10 +4,13 @@ on:
   pull_request:
 
 env:
-  # go-canon v0.1.0 is not yet served by proxy.golang.org (newly published
-  # repo); resolve it directly from GitHub and skip the checksum database
-  # until the proxy catches up. Drop this once proxy.golang.org serves it.
-  GOPRIVATE: github.com/SynthLuvlr/*
+  # go-canon v0.1.0 is vendored under .module-proxy: the newly published
+  # repo is not yet reliably servable via GitHub git or proxy.golang.org.
+  # GOPROXY is pointed there by the first CI step; skip the checksum
+  # database for go-canon since go.sum pins its hashes. Delete the
+  # .module-proxy dir, the GONOSUMDB line, and the GOPROXY step once
+  # proxy.golang.org serves v0.1.0.
+  GONOSUMDB: github.com/SynthLuvr/go-canon
 
 jobs:
   ci:
@@ -52,16 +55,12 @@ jobs:
           Add-Content $env:GITHUB_PATH $dir
           & "$dir\pandoc.exe" --version | Select-Object -First 1
 
-      # go-canon v0.1.0 was published today; GitHub's git backend still
-      # demands credentials for it from runner and proxy networks even
-      # though the repo is public. Authenticate git with the workflow
-      # token so direct module fetches succeed. Drop this step once
-      # anonymous git and proxy.golang.org both serve the repo.
-      - name: Authenticate git for direct module fetches
+      # Serve go-canon from the vendored file proxy first; everything
+      # else falls through to proxy.golang.org. `pwd -W` yields a
+      # forward-slash path on Windows runners, plain pwd elsewhere.
+      - name: Point GOPROXY at the vendored module proxy
         shell: bash
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        run: 'git config --global "url.https://x-access-token:${GITHUB_TOKEN}@github.com/.insteadOf" "https://github.com/"'
+        run: 'echo "GOPROXY=file://$(pwd -W 2>/dev/null || pwd)/.module-proxy,https://proxy.golang.org,direct" >> "$GITHUB_ENV"'
 
       - name: Warm the module cache
         run: go mod download
