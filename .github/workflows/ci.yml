@@ -3,15 +3,6 @@ name: CI
 on:
   pull_request:
 
-env:
-  # go-canon v0.1.1 is vendored under .module-proxy: the newly published
-  # repo is not yet reliably servable via GitHub git or proxy.golang.org.
-  # GOPROXY is pointed there by the first CI step; skip the checksum
-  # database for go-canon since go.sum pins its hashes. Delete the
-  # .module-proxy dir, the GONOSUMDB line, and the GOPROXY step once
-  # proxy.golang.org serves v0.1.0.
-  GONOSUMDB: 'github.com/SynthLuvlr/*'
-
 jobs:
   ci:
     strategy:
@@ -55,9 +46,11 @@ jobs:
           Add-Content $env:GITHUB_PATH $dir
           & "$dir\pandoc.exe" --version | Select-Object -First 1
 
-      # Serve go-canon from the vendored file proxy first; everything
-      # else falls through to proxy.golang.org. `pwd -W` yields a
-      # forward-slash path on Windows runners, plain pwd elsewhere.
+      # The go-canon repo is not anonymously fetchable via GitHub git
+      # or proxy.golang.org yet, so resolve it from the vendored
+      # .module-proxy dir; delete the dir and this step once the public
+      # proxy serves it. `pwd -W` yields a forward-slash path on
+      # Windows runners, plain pwd elsewhere.
       - name: Point GOPROXY at the vendored module proxy
         shell: bash
         run: 'p=$(pwd -W 2>/dev/null || pwd); p=${p#/}; echo "GOPROXY=file:///$p/.module-proxy,https://proxy.golang.org,direct" >> "$GITHUB_ENV"'
