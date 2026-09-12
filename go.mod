@@ -16,11 +16,6 @@ tool (
 	golang.org/x/vuln/cmd/govulncheck
 )
 
-// Local development only: drop this replace (and the require below) once
-// go-canon is published, so the tool directive resolves from the module
-// proxy.
-replace github.com/SynthLuvlr/go-canon => ../go-canon
-
 require github.com/google/go-cmp v0.7.0
 
 require (

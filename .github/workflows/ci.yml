@@ -3,6 +3,12 @@ name: CI
 on:
   pull_request:
 
+env:
+  # go-canon v0.1.0 is not yet served by proxy.golang.org (newly published
+  # repo); resolve it directly from GitHub and skip the checksum database
+  # until the proxy catches up. Drop this once proxy.golang.org serves it.
+  GOPRIVATE: github.com/SynthLuvlr/*
+
 jobs:
   ci:
     strategy:
