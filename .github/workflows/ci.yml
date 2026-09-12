@@ -46,8 +46,10 @@ jobs:
           Add-Content $env:GITHUB_PATH $dir
           & "$dir\pandoc.exe" --version | Select-Object -First 1
 
-      # The go-canon repo is not anonymously fetchable via GitHub git
-      # or proxy.golang.org yet, so resolve it from the vendored
+      # go-canon v0.1.2 is tagged and the repo is public, but
+      # proxy.golang.org still serves a cached "not found" for the
+      # module (the private->public flip is propagating on GitHub's
+      # git endpoints too), so resolve it from the vendored
       # .module-proxy dir; delete the dir and this step once the public
       # proxy serves it. `pwd -W` yields a forward-slash path on
       # Windows runners, plain pwd elsewhere.
