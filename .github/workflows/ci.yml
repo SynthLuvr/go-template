@@ -52,6 +52,17 @@ jobs:
           Add-Content $env:GITHUB_PATH $dir
           & "$dir\pandoc.exe" --version | Select-Object -First 1
 
+      # go-canon v0.1.0 was published today; GitHub's git backend still
+      # demands credentials for it from runner and proxy networks even
+      # though the repo is public. Authenticate git with the workflow
+      # token so direct module fetches succeed. Drop this step once
+      # anonymous git and proxy.golang.org both serve the repo.
+      - name: Authenticate git for direct module fetches
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: 'git config --global "url.https://x-access-token:${GITHUB_TOKEN}@github.com/.insteadOf" "https://github.com/"'
+
       - name: Warm the module cache
         run: go mod download
 
