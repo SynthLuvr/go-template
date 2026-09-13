@@ -24,7 +24,7 @@ All three must pass with zero errors.
 ## Toolchain
 
 Lint, format, and environment checks come from
-[go-canon](https://github.com/SynthLuvr/gocanon) — one meta-tool that
+[go-canon](https://github.com/SynthLuvr/go-canon) — one meta-tool that
 owns every gate and preset, pinned in the `go.mod` `tool` block.
 
 - Run tooling through `task <task>` (`task lint`, `task format`), which

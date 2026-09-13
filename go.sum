@@ -111,8 +111,8 @@ github.com/MirrexOne/unqueryvet v1.5.4 h1:38QOxShO7JmMWT+eCdDMbcUgGCOeJphVkzzRgy
 github.com/MirrexOne/unqueryvet v1.5.4/go.mod h1:fs9Zq6eh1LRIhsDIsxf9PONVUjYdFHdtkHIgZdJnyPU=
 github.com/OpenPeeDeeP/depguard/v2 v2.2.1 h1:vckeWVESWp6Qog7UZSARNqfu/cZqvki8zsuj3piCMx4=
 github.com/OpenPeeDeeP/depguard/v2 v2.2.1/go.mod h1:q4DKzC4UcVaAvcfd41CZh0PWpGgzrVxUYBlgKNGquUo=
-github.com/SynthLuvr/gocanon v0.3.0 h1:E78doZ56wgXZaN7sBaO+ejMMRE0Zvt+s2oyJbcWomt8=
-github.com/SynthLuvr/gocanon v0.3.0/go.mod h1:jMH+NK86KQyDJpuLw6LVioSarvsorj2NhM6Un673YK8=
+github.com/SynthLuvr/go-canon v0.4.1 h1:npO5FPXaT+VASjf9DvnDXeRFB8DU4U26M26QyJ7wqDg=
+github.com/SynthLuvr/go-canon v0.4.1/go.mod h1:pbmf3VWxO5OP+f9XWAy/uNPE0DJE/pGc9fuhcmNUKUw=
 github.com/alecthomas/assert/v2 v2.11.0 h1:2Q9r3ki8+JYXvGsDyBXwH3LcJ+WK5D0gc5E8vS6K3D0=
 github.com/alecthomas/assert/v2 v2.11.0/go.mod h1:Bze95FyfUr7x34QZrjL+XP+0qgp/zg8yS+TtBj1WA3k=
 github.com/alecthomas/chroma/v2 v2.27.0 h1:FodwmyOBgJULFYmDqibcp9pvfDLWdtPRh9v/r5BXYZs=
