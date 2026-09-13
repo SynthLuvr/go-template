@@ -46,17 +46,17 @@ jobs:
           Add-Content $env:GITHUB_PATH $dir
           & "$dir\pandoc.exe" --version | Select-Object -First 1
 
-      # The module is github.com/SynthLuvlr/gocanon as of v0.2.0
-      # (renamed from go-canon to escape a stale proxy.golang.org
-      # not-found cache keyed on the old path). The public proxy is
-      # also serving a cached failure for the new path (it was probed
-      # during the rename's propagation window), so resolve from the
-      # vendored .module-proxy dir; delete the dir and this step once
-      # the public proxy serves the module. `pwd -W` yields a
-      # forward-slash path on Windows runners, plain pwd elsewhere.
+      # gocanon was renamed from go-canon to dodge a stale 404 cache on
+      # the old module path, but proxy.golang.org also caches a 404 for
+      # the new path, so CI resolves it from the vendored .module-proxy
+      # directory. Delete the directory and this step once the public
+      # proxy serves gocanon. `pwd -W` yields a forward-slash path on
+      # Windows runners, plain pwd elsewhere.
       - name: Point GOPROXY at the vendored module proxy
         shell: bash
-        run: 'p=$(pwd -W 2>/dev/null || pwd); p=${p#/}; echo "GOPROXY=file:///$p/.module-proxy,https://proxy.golang.org,direct" >> "$GITHUB_ENV"'
+        run: |
+          dir=$(pwd -W 2>/dev/null || pwd); dir=${dir#/}
+          echo "GOPROXY=file:///$dir/.module-proxy,https://proxy.golang.org,direct" >> "$GITHUB_ENV"
 
       - name: Warm the module cache
         run: go mod download
