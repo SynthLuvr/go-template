@@ -4,20 +4,20 @@ A minimal Go project template with a complete build, format, lint, test,
 coverage, and security toolchain. The code does nothing useful — it’s a
 starting point for new projects.
 
-The toolchain lives in
-[go-canon](https://github.com/SynthLuvlr/gocanon): one meta-tool owning
-every gate and preset, in the same spirit as ts-canon (TypeScript) and
-canonist (Python). Go modules make the bundling half unnecessary — the
-`tool` directives in `go.mod` pin the whole toolchain, compiled locally
-by the Go toolchain itself. This repo keeps only `go-cmp` as a direct
-dependency (the canonical diff library for table-driven tests).
+The toolchain lives in [go-canon](https://github.com/SynthLuvr/gocanon):
+one meta-tool owning every gate and preset, in the same spirit as
+ts-canon (TypeScript) and canonist (Python). Go modules make the
+bundling half unnecessary — the `tool` directives in `go.mod` pin the
+whole toolchain, compiled locally by the Go toolchain itself. This repo
+keeps only `go-cmp` as a direct dependency (the canonical diff library
+for table-driven tests).
 
 ## Tech Stack
 
 | Tool | Purpose |
 |----|----|
 | [Go modules](https://go.dev/ref/mod) | Package manager (`go.sum` is the lockfile) |
-| [go-canon](https://github.com/SynthLuvlr/gocanon) | The shared lint/format/test/doctor/migrate toolchain |
+| [go-canon](https://github.com/SynthLuvr/gocanon) | The shared lint/format/test/doctor/migrate toolchain |
 | [golangci-lint](https://golangci-lint.run) | Meta-linter: errcheck, govet, staticcheck, unused, gosec, dupl, … |
 | [gofumpt](https://github.com/mvdan/gofumpt) + [gci](https://github.com/daixiang0/gci) | Formatting and import order (via golangci-lint) |
 | [modernize](https://go.dev/blog/gopls-modernize) | Idiom codemods (range-over-int, slices/maps/min/max) |
@@ -165,7 +165,7 @@ template-family symmetry. Don’t “fix” them:
 ## Config
 
 Rule/preset changes happen in
-[go-canon](https://github.com/SynthLuvlr/gocanon), not here: bump the
+[go-canon](https://github.com/SynthLuvr/gocanon), not here: bump the
 go-canon version in the `tool` block and the whole toolchain moves
 together. Repo-specific deltas go in `go-canon.toml` (`[golangci]` deep
 merges over the preset; `[dupl] tokens` and `[test] coverage-threshold`

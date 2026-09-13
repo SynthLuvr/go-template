@@ -1,4 +1,4 @@
-module github.com/SynthLuvlr/go-template
+module github.com/SynthLuvr/go-template
 
 go 1.27
 
@@ -9,7 +9,7 @@ toolchain go1.27.1
 // are pinned here and verified by go.sum; `go tool <name>` compiles
 // them locally.
 tool (
-	github.com/SynthLuvlr/gocanon/cmd/go-canon
+	github.com/SynthLuvr/gocanon/cmd/go-canon
 	github.com/go-task/task/v3/cmd/task
 	github.com/golangci/golangci-lint/v2/cmd/golangci-lint
 	golang.org/x/tools/gopls/internal/analysis/modernize/cmd/modernize
@@ -54,7 +54,7 @@ require (
 	github.com/Masterminds/semver/v3 v3.5.0 // indirect
 	github.com/MirrexOne/unqueryvet v1.5.4 // indirect
 	github.com/OpenPeeDeeP/depguard/v2 v2.2.1 // indirect
-	github.com/SynthLuvlr/gocanon v0.2.0 // indirect
+	github.com/SynthLuvr/gocanon v0.3.0 // indirect
 	github.com/alecthomas/chroma/v2 v2.27.0 // indirect
 	github.com/alecthomas/go-check-sumtype v0.3.1 // indirect
 	github.com/alexkohler/nakedret/v2 v2.0.6 // indirect
