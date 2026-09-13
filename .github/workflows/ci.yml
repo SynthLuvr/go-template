@@ -46,13 +46,14 @@ jobs:
           Add-Content $env:GITHUB_PATH $dir
           & "$dir\pandoc.exe" --version | Select-Object -First 1
 
-      # go-canon v0.1.2 is tagged and the repo is public, but
-      # proxy.golang.org still serves a cached "not found" for the
-      # module (the private->public flip is propagating on GitHub's
-      # git endpoints too), so resolve it from the vendored
-      # .module-proxy dir; delete the dir and this step once the public
-      # proxy serves it. `pwd -W` yields a forward-slash path on
-      # Windows runners, plain pwd elsewhere.
+      # The module is github.com/SynthLuvlr/gocanon as of v0.2.0
+      # (renamed from go-canon to escape a stale proxy.golang.org
+      # not-found cache keyed on the old path). The public proxy is
+      # also serving a cached failure for the new path (it was probed
+      # during the rename's propagation window), so resolve from the
+      # vendored .module-proxy dir; delete the dir and this step once
+      # the public proxy serves the module. `pwd -W` yields a
+      # forward-slash path on Windows runners, plain pwd elsewhere.
       - name: Point GOPROXY at the vendored module proxy
         shell: bash
         run: 'p=$(pwd -W 2>/dev/null || pwd); p=${p#/}; echo "GOPROXY=file:///$p/.module-proxy,https://proxy.golang.org,direct" >> "$GITHUB_ENV"'
